@@ -1,0 +1,12 @@
+
+.Column{clear: both;}
+.Column{width:6.4rem; margin:0 auto;position: absolute;top:3.5rem;margin-bottom: 0.8rem;margin-top:.9rem;}
+.Column ul{ padding:0 0.4rem;}
+.Column ul li{ color:#494d4d; padding:0.2rem 0; border-bottom:1px dashed #ccc;}
+.Column ul li .shu{overflow: hidden;}
+.Column ul li .shu .shu-left{float: left;}
+.Column ul li .shu .shu-left img{width:30px ;height:40px;display: block;}
+.Column ul li .shu .shu-right{float: left;color: #000;margin-left: 5px;}
+.Column ul li .shu .shu-right .title{font-size: 16px;}
+.Column ul li .shu .shu-right .auth{font-size: 12px;}
+.Column ul li .shu .time{float: right;font: 12px/3 "";color: rgb(83, 78, 78)}

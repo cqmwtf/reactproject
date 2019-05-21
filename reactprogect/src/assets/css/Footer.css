@@ -1,0 +1,16 @@
+
+.foot-btn{width:100%;height:0.8rem;z-index: 666; background:#fff; position:fixed; left:0; bottom:0; border-top:1px solid #9e9a95;}
+.foot-btn ul{ margin:0 auto;display: flex;}
+.foot-btn ul li{ float:left;flex: 1;text-align: center;font: 14px/3 "";}
+.foot-btn ul li.bookshelf a{display: block;padding:8px;background: url('../img/books.png') no-repeat top;background-size: 30%;margin-top: 3px;}
+.foot-btn ul li.bookshelf a span{color: red}
+
+.foot-btn ul li.Recommend a{display: block;padding:8px;background: url('../img/bangzhuzhichi_hudongzhibo.png') no-repeat top;background-size: 27%;margin-top: 3px;}
+.foot-btn ul li.Recommend a span{color: red}
+
+.foot-btn ul li.sort a{display: block;padding:8px;background: url('../img/youshi_fengfujingyan.png') no-repeat top;background-size: 27%;margin-top: 3px;}
+.foot-btn ul li.sort a span{color: red}
+
+
+.foot-btn ul li.my a{display: block;padding:8px;background: url('../img/jiejuefangan_yonghuzhongxin.png') no-repeat top;background-size: 27%;margin-top: 3px;}
+.foot-btn ul li.my a span{color: red}
