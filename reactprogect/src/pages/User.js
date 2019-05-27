@@ -100,8 +100,7 @@ class User extends Component {
     remove=async()=>{
         let res = await axios({url:"/api/logout",method:"PUT"})
         if(res.data.error===0){
-            // console.log(1)
-            localStorage.removeItem("user")
+            localStorage.removeItem("rc_user")
             this.props.history.push("/home");
         }else {
             alert("注销失败")

@@ -1,29 +1,37 @@
 import React,{Component} from "react";
-// import Swiper from "../components/Swiper";
+import Loading from "../components/Loading";
 import Column from "../pages/Column";
 
 import axios from 'axios';
 import Swiper from "../components/Swiper";
+import connect from 'react-redux/es/connect/connect'
+import { action1 } from '../store/actions'
 class Home extends Component {
-    state={
-        column:[],
-        banners:[]
-    };
-
-    render() {
+    render(){
+        let {home,bLoading}=this.props
         return (
             <div className="Home">
+                {bLoading && <Loading/>}
                 <Swiper/>
-                <Column cloumn={this.state.column} dataName="Home"></Column>
+                <Column cloumn={home} dataName="Home"></Column>
             </div>
         );
     }
-    async componentDidMount(){
-
-        let resHome = await axios({url:'/mock/banner',params:{_limit:10}});
-        this.setState({column:resHome.data.page_data,})
-
+    componentDidMount(){
+        this.props.get({url:'/mock/banner',params:{_limit:10},typename:'UPDATE_HOME'})
     }
 }
 
-export default Home;
+const State = state=>({
+    home:state.home,
+    bLoading:state.bLoading
+})
+const Dispatch = dispatch=>({
+    get:({url,params,typename})=>dispatch(action1({
+        dispatch,url,params,typename
+    }))
+})
+
+  
+  export default connect(State,Dispatch)(Home)
+  

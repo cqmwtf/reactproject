@@ -14,12 +14,43 @@ import Details from "../pages/Details";
 import Sort from "../pages/Sort";
 import Error from "../pages/Error";
 import AuthRoute from "../guard/Auth";
+import Loading from "../components/Loading";
+
 
 class App extends Component {
+    constructor(props){
+        super();
+        this.state = {
+            bLoading: false,
+            bNav:true,
+            bFooter:true
+          }
+    }
+    componentWillReceiveProps(nextprops){
+        // console.log(nextprops)
+        let path = nextprops.location.pathname;
+        this.changepath(path)
+    }
+    componentDidMount(){
+        let path = this.props.location.pathname;
+        this.changepath(path)
+    }
+    changepath=(path)=>{
+        if(/home|recommd|Sort/.test(path)){
+            this.setState({bNav:true,bFooter:true})
+        }
+        if(/details|Login|reg/.test(path)){
+            this.setState({bNav:false,bFooter:false})
+        }
+        if(/User/.test(path)){
+            this.setState({bNav:false,bFooter:true})
+        }
+    }
     render() {
         return (
-            <div className="App">
-                <Header/>
+            <>
+             {this.state.bLoading && <Loading/>}
+                {this.state.bNav && <Header/>}
                 <Switch>
                     <Route path="/home" component={Home}/>
                     <Route path="/follow" component={Recommd}/>
@@ -33,8 +64,8 @@ class App extends Component {
                     <Redirect exact from="/" to="/home"/>
                     <Route component={Error}/>
                 </Switch>
-                <Footer/>
-            </div>
+                {this.state.bFooter && <Footer/>}
+            </>
         );
     }
 }

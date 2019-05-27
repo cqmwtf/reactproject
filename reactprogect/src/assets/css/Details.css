@@ -29,8 +29,8 @@ html,body{ overflow-x: hidden;}
 .zan i{width:0.36rem;height:0.28rem; background:url(../img/zan1.png) no-repeat 0 0; background-size:100%; float:left; margin-left:0.54rem; margin-top:0.13rem;}
 .zan span{height:0.26rem; float:left; line-height:0.26rem; margin-left:0.16rem; margin-top:0.13rem;}
 .foot-btn ul .xing{width:1.2rem;height:0.52rem; border-right:1px solid #e8eaec;}
-.xing i{width:0.34rem;height:0.24rem; margin:0 auto; display:block; padding-top:0.1rem;}
+.xing i{width:0.36rem;height:0.26rem; background:url(../img/xing.png) no-repeat 0 0; background-size:100%; float:left; margin-left:0.7rem; margin-top:0.13rem;}
 .xing i img{width:100%;}
 .foot-btn ul .fx{width:1.25rem;height:0.52rem;}
-.fx i{width:0.33rem;height:0.08rem;display:block; margin:0 auto; padding-top:0.15rem;}
+.fx i{width:0.36rem;height:0.26rem; background:url(../img/fx.png) no-repeat 0 0; background-size:100%; float:left; margin-left:0.7rem; margin-top:0.13rem;}
 .fx i img{width:100%;}

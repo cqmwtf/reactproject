@@ -3,19 +3,21 @@ import '../assets/css/Swiper.css'
 import $ from 'jquery';
 import Swipe from '../library/swipe';
 import axios from "axios";
+import {action1} from "../store/actions"
+import connect from 'react-redux/es/connect/connect'
 class Swiper extends Component {
     state={
         banners:[]
     }
     render() {
-        // let {banners} = this.props;
+        let {banner} = this.props;
         return (
             <div className="Swiper">
 
                 <div className="banner">
                     <ul className="clearfix">
                         {
-                            this.state.banners[0] && this.state.banners.map(item=>(
+                            banner[0] && banner.map(item=>(
                                 <li
                                     key={item.id}
                                 >
@@ -33,14 +35,17 @@ class Swiper extends Component {
             </div>
         );
     }
-    componentDidMount() {
-        axios({
-            url:"/mock/banner"
-        }).then((res)=>{
-            this.setState({
-                banners:res.data.page_data
-            })
-        })
+    // componentDidMount() {
+    //     axios({
+    //         url:"/mock/banner"
+    //     }).then((res)=>{
+    //         this.setState({
+    //             banners:res.data.page_data
+    //         })
+    //     })
+    // }
+    componentDidMount(){
+        this.props.get({url:"/mock/banner",typename:'UPDATA_BANNER'})
     }
     componentDidUpdate(){
         let mySwipe=new Swipe($('.banner')[0],{
@@ -55,4 +60,15 @@ class Swiper extends Component {
     }
 }
 
-export default Swiper;
+const State = state=>({
+    banner:state.banner,
+    // bLoading:state.bLoading
+})
+const Dispatch = dispatch=>({
+    get:({url,params,typename})=>dispatch(action1({
+        dispatch,url,params,typename
+    }))
+})
+
+  
+  export default connect(State,Dispatch)(Swiper)

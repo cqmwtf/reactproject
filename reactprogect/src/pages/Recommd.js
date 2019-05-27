@@ -2,15 +2,21 @@ import React,{Component} from "react";
 import '../assets/css/Recommd.css'
 import axios from 'axios'
 import Swiper from "../components/Swiper";
+import {action1} from '../store/actions'
+import Loading from "../components/Loading";
 import {Link} from "react-router-dom";
+import connect from 'react-redux/es/connect/connect'
+
 
 class Recommd extends Component {
     state={recommd:[]}
     render() {
-        let dataName="Sort"
+        let {recommd,bLoading}=this.props
+        // let dataName="Sort"
         // console.log(this.state.recommd)
         return (
             <div className="bbb">
+                {bLoading && <Loading/>}
                 <Swiper/>
 
                 <div id="recommd">
@@ -38,12 +44,12 @@ class Recommd extends Component {
                     </ul>
                     <div id="shurecommd">
                         <dl>
-                            {this.state.recommd && this.state.recommd.map(item=>(
+                            {recommd && recommd.map(item=>(
                                 <Link
                                     key={item.id}
                                     to={{
                                         pathname:'/details/' + item.id,
-                                        search:"?dataName=" + dataName
+                                        search:"?dataName=" + "Sort"
                                     }}
                                 >
                                 <dd>
@@ -57,12 +63,12 @@ class Recommd extends Component {
 
                         </dl>
                         <dl>
-                            {this.state.recommd && this.state.recommd.map(item=>(
+                            {recommd && recommd.map(item=>(
                                 <Link
                                     key={item.id}
                                     to={{
                                         pathname:'/details/' + item.id,
-                                        search:"?dataName=" + dataName
+                                        search:"?dataName=" + "Sort"
                                     }}
                                 >
                                 <dd key={item.id}>
@@ -76,12 +82,12 @@ class Recommd extends Component {
 
                         </dl>
                         <dl>
-                            {this.state.recommd&&this.state.recommd.map(item=>(
+                            {recommd&& recommd.map(item=>(
                                 <Link
                                     key={item.id}
                                     to={{
                                         pathname:'/details/' + item.id,
-                                        search:"?dataName=" + dataName
+                                        search:"?dataName=" + "Sort"
                                     }}
                                 >
                                 <dd key={item.id}>
@@ -98,12 +104,26 @@ class Recommd extends Component {
             </div>
         );
     }
-    async componentDidMount() {
-        let resrecommd = await axios({url:'/mock/banner',params:{_limit:4}});
-        this.setState({
-            recommd:resrecommd.data.page_data
-        })
+    // async componentDidMount() {
+    //     let resrecommd = await axios({url:'/mock/banner',params:{_limit:4}});
+    //     this.setState({
+    //         recommd:resrecommd.data.page_data
+    //     })
+    // }
+    componentDidMount(){
+        this.props.get({url:'/mock/banner',params:{_limit:4},typename:'UPDATE_RECOMMD'})
     }
 }
 
-export default Recommd;
+const State = state=>({
+    recommd:state.recommd,
+    bLoading:state.bLoading
+})
+const Dispatch = dispatch=>({
+    get:({url,params,typename})=>dispatch(action1({
+        dispatch,url,params,typename
+    }))
+})
+
+  
+  export default connect(State,Dispatch)(Recommd)

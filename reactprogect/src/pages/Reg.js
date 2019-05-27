@@ -2,7 +2,9 @@ import React,{Component} from "react";
 import '../assets/css/Reg.css'
 import {NavLink} from "react-router-dom";
 import axios from 'axios'
-// import Cell from "../components/Cell";
+import { action3 } from '../store/actions'
+import connect from 'react-redux/es/connect/connect'
+
 
 class Reg extends Component {
     state={
@@ -48,19 +50,54 @@ class Reg extends Component {
     }
 
     submit=async()=>{
-        let formData = new FormData();
-        formData.append("username", this.state.username);
-        formData.append("password", this.state.password);
-         let res = await axios({url:"/api/reg",data:formData,method:"POST"})
-        if(res.data.error===0){
-            localStorage.setItem('url',JSON.stringify(res.data));
-            this.props.history.push("/login");
-        }else {
-            alert("注册重名")
-        }
+        // let res = await axios({
+        //     url:'/mock/reg',
+        //     params:{
+        //       username:this.state.username,
+        //       password:this.state.password
+        //     }
+        //   });
+      
+        //   // console.log(res)
+        //   if (res.data.error===0){
+        //     //写入local && 跳转user
+        //     localStorage.setItem('rc_user',JSON.stringify(res.data.page_data))
+        //     this.props.history.push('/user')
+        //   } else {
+        //     alert('失败')
+        //   }
+        this.props.get({
+            url:'/mock/reg',
+            params: {
+              username:this.state.username,
+              password:this.state.password
+            },
+            typename:'UPDATE_USER'
+          }).then(
+            error => {
+            //   console.log(error);
+            if(error === 0){
+                alert('注册成功，跳转登录页面')
+                this.props.history.push('/login')
+            }else{
+                alert("注册失败，请重试")
+            }
+            }
+          )
+
+
     }
 
 
 }
 
-export default Reg;
+const State = (state)=>({
+    user:state.user
+})
+
+const Dispatch = (dispatch)=>({
+    get:({url,method,data,typename})=>dispatch(action3({url,method,data,typename}))
+})
+
+
+export default connect(State,Dispatch)(Reg)

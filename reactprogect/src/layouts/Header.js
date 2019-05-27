@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import '../assets/css/Header.css'
 import Swiper from "../components/Swiper";
-
+import {withRouter} from 'react-router-dom'
 class Header extends Component {
     render() {
         return (
@@ -15,4 +15,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);
